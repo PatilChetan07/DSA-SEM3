@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define size 3
+
+struct queue{
+    int front,rear;
+    int arr[size];
+}q;
+
+
+void enqueue(){
+    int x;
+    if(q.rear == size-1){
+        printf("queue is full \n");
+    }
+    else{
+        if(q.front == -1)
+        q.front = 0;
+        printf("enter the value to be enqueue\n");
+        scanf("%d",&x);
+        q.rear++;
+        q.arr[q.rear]=x;
+    }
+}
+
+void dequeue(){
+    if(q.rear == -1 || q.front > q.rear ){
+        printf("queue is empty\n");
+    }
+    else{
+        printf("element deleted from queue is :%d\n",q.arr[q.front]);
+        q.front++;
+        if(q.front > q.rear){
+            q.front = q.rear = -1;
+            //KEY STEP (when only one element is left,then front and rear should =-1)
+        }
+    }
+}
+
+void display(){
+    if(q.rear == -1){
+        printf("Queue is empty\n");
+    }
+    else{
+        printf("element present in the queue are :\n");
+        for(int i=q.front; i<=q.rear; i++){
+            printf("%d--",q.arr[i]);
+        }
+    }
+    printf("\n");
+}
+
+
+void main(){
+    q.front = q.rear = -1;
+    int value;
+    int choice;
+    while (1) {
+    printf ("Queue Menu \n1.enqueue \n2.dequeue \n3.display \n4.exit");
+    printf ("\nEnter your choice \n");
+    scanf ("%d", &choice);
+      
+    switch (choice){
+	case 1:	enqueue();
+	break;
+	case 2:	dequeue();
+	break;
+	case 3:	display();
+	break;
+	case 4:exit (0);
+	default: printf("\nInvalid input\n");
+	}
+  }
+}
