@@ -1,0 +1,82 @@
+// stacks_ll
+#include <stdio.h>
+#include <stdlib.h>
+
+struct stacks_ll{
+    int data;
+    struct stacks_ll * next ;
+};
+
+struct stacks_ll * helpPtr;
+struct stacks_ll * top;
+
+struct stacks_ll * push (struct stacks_ll*top,int value){
+    printf("enter the value to push in the stacks\n");
+    scanf("%d",&value);
+    
+    struct stacks_ll * newNode = (struct stacks_ll*)malloc(sizeof(struct stacks_ll));
+    newNode->data = value;
+    
+    if(top==NULL){
+        newNode->next = NULL;
+        top = newNode;
+        return top ;
+    }
+    else{
+        newNode->next=top;
+        top = newNode;
+        return top ;
+    }
+}
+
+struct stacks_ll * pop (struct stacks_ll*top){
+    helpPtr=top;
+    if(top==NULL){
+        printf("stacks is empty\n");
+    }
+    else{
+       top=top->next;
+       printf("element deleted from stacks is :%d\n",helpPtr->data);
+       free(helpPtr);
+    }
+    return top; 
+}
+
+struct stacks_ll * display(struct stacks_ll*top){
+    helpPtr=top;
+    if(top==NULL){
+        printf("stacks is empty\n");
+    }
+    printf("element in the stacks are :\n");
+    while(helpPtr!=NULL){
+    printf("%d\n",helpPtr->data);
+    helpPtr=helpPtr->next;
+    }
+    return top ;
+    printf("\n");
+}
+
+void main(){
+    top=NULL;
+    int choice,value;
+    while(1){
+    printf("STACKS MENU:\n"); 
+    printf("1)PUSH\n2)POP\n3)DISPLAY\n4)EXIT\n"); 
+    printf("ENTER YOUR CHOICE:\n");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1: top=push(top,value); 
+        break;
+
+        case 2: top=pop(top); 
+        break;
+
+        case 3: top=display(top); 
+        break;
+
+        case 4: exit(0);
+
+        default: printf("ENTER CHOICE BETWEEN 1-4\n");
+       }
+    }
+}
