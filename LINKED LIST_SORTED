@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct ll_node
+{
+    int data; 
+    struct ll_node *next; 
+}; 
+void display(struct ll_node *mylist,int val)
+{
+    struct ll_node *helpptr; 
+    for(helpptr=mylist;helpptr!=NULL;helpptr=helpptr->next)
+    {
+        printf("%d\n",helpptr->data); 
+    }
+}
+struct ll_node* insert(struct ll_node *mylist,int val)
+{
+    struct ll_node *helpptr; 
+    helpptr=mylist; 
+    struct ll_node *pnew=(struct ll_node *)malloc(sizeof(struct ll_node)); 
+    (*pnew).data=val;
+    (*pnew).next=NULL; 
+    if(helpptr==NULL||(*mylist).data>val) //empty linked list and sorting it
+    {
+        pnew->next=mylist; 
+        mylist=pnew; 
+        return mylist; 
+    }
+    else
+    {
+        while(helpptr->next!=NULL&&helpptr->next->data<val)
+        {
+            helpptr=helpptr->next; 
+        }
+        pnew->next=helpptr->next; 
+        helpptr->next=pnew;
+        return mylist; 
+    }
+}
+struct ll_node* del(struct ll_node *mylist,int val)
+{
+    struct ll_node *helpptr,*nodetodel; 
+    helpptr=mylist; 
+    if(helpptr!=NULL) //emplty linked list
+    {
+        if(helpptr->data==val) //only one element to delete
+        {
+            mylist=helpptr->next; 
+            free(helpptr); 
+            return mylist; 
+        }
+        else
+        {
+            if(helpptr->next->data==val)
+            {
+                nodetodel=helpptr->next; 
+                helpptr->next=helpptr->next->next; 
+                free(nodetodel); 
+                return mylist; 
+            }
+            helpptr=helpptr->next; 
+        }
+    }
+    else
+    {
+        printf("LINKED LIST IS EMPTY!!"); 
+    }
+}
+void main()
+{
+    struct ll_node *head; 
+    int cho,val; 
+    head=NULL; 
+    do
+    {
+    printf("choices are as follows:\n1)INSERT\n2)DELETE\n3)DISPLAY\n4)EXIT\n"); 
+    printf("enter your choice:\n"); 
+    scanf("%d",&cho); 
+    switch(cho)
+    {
+        case 1:
+        printf("enter value to be inserted:\n"); 
+        scanf("%d",&val); 
+        head=insert(head,val); 
+        break; 
+        
+        case 2:
+        printf("enter value to be deleted:\n"); 
+        scanf("%d",&val); 
+        head=del(head,val); 
+        break; 
+
+        case 3:
+        display(head,val); 
+        break; 
+
+    }
+    }while(cho!=4); 
+}
