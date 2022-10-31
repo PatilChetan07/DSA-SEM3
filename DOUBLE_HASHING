@@ -1,0 +1,51 @@
+//double hash_table
+#include <stdio.h>
+
+void printArray(int arr[20], int n){
+    printf("the linear hash_table for the given value is :\n");
+    for(int i=0; i<10;i++){
+        printf("%d\t",i);
+    }
+    printf("\n\n");
+   for (int i=0; i < 10; i++){
+      printf("%d\t", arr[i]);
+   }
+   printf("\n");
+}
+
+void hashing(int table[],int tSize,int arr[20],int n){
+    for(int i=0;i<n;i++){
+        int hv = arr[i] % tSize;                               // Direct hash when no collision
+        
+        if(table[hv]==-1){                                     // insert if it was empty before
+            table[hv]=arr[i];
+        }
+        else{                                                            // If there is a collision
+            for(int j=0;j<tSize;j++){
+                int hv2 = (hv + j*(arr[i]%(tSize-1)))%tSize;             // Calculating the new hash value
+                if(table[hv2] == -1){                                 //search till we get next empty bucket place
+                table[hv2]=arr[i];
+                break;
+            }
+            }
+        }
+    }
+    printArray(table,n);
+}
+
+void main(){
+    int arr[20],n;
+    int tSize = 10;
+    printf("enter the size of array\n");
+    scanf("%d",&n);
+    printf("enter the elements in the array\n");
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
+    }
+    
+    int hash_table[10];
+    for(int i=0;i<10;i++){                              // Initializing the hash table with -1 to denote empty
+        hash_table[i] = -1;
+    }
+    hashing(hash_table,tSize,arr,n);
+}
