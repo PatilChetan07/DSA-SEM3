@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct binaryTree{
+    int data;
+    struct binaryTree * left ;
+    struct binaryTree * right ;
+};
+
+struct binaryTree * createNode(int value){              
+    struct binaryTree * node = (struct binaryTree *)malloc(sizeof(struct binaryTree));  //create and allocate memory to of pointer
+    node->data=value;
+    node->left=NULL;
+    node->right=NULL;
+
+    return node;
+}
+
+void preOrder(struct binaryTree * root){
+    if(root!=NULL){
+        printf("%d  ",root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
+void inOrder(struct binaryTree * root){
+    if(root!=NULL){
+        inOrder(root->left);
+        printf("%d  ",root->data);
+        inOrder(root->right);
+    }
+}
+
+void postOrder(struct binaryTree * root){
+    if(root!=NULL){
+        postOrder(root->left);
+        postOrder(root->right);
+        printf("%d  ",root->data);
+    }
+}
+
+void main(){
+    struct binaryTree * p = createNode(10); 
+    struct binaryTree * q = createNode(5);
+    struct binaryTree * r = createNode(15);
+    struct binaryTree * q1 = createNode(1);
+    struct binaryTree * q2 = createNode(2);
+    struct binaryTree * r1 = createNode(11);
+    struct binaryTree * r2 = createNode(12);
+
+
+                    // p is parent node 
+           p->left=q;              p->right=r;                               
+    q->left=q1;q->right=q2;    r->left=r1; r->right=r2;  
+
+
+    // calling preOrder function
+    printf("preOrder traversal in binaryTree :\n");
+    preOrder(p);
+
+    printf("\ninOrder traversal in binaryTree :\n");
+    inOrder(p);
+
+    printf("\npostOrder traversal in binaryTree :\n");
+    postOrder(p);
+}
